@@ -1,0 +1,67 @@
+name: Categories
+description: |-
+
+  Категории каталога
+
+  Дерево категорий (с вложенными children).
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: api/categories/tree
+    metadata:
+      groupName: Categories
+      groupDescription: |-
+
+        Категории каталога
+
+        Дерево категорий (с вложенными children).
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Дерево категорий'
+      description: 'Возвращает список корневых категорий (`depth = 1`) с вложенными подкатегориями.'
+      authenticated: false
+      deprecated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "data": [
+              {
+                "id": 1,
+                "name": "Одежда",
+                "slug": "odezhda",
+                "children": [
+                  {
+                    "id": 2,
+                    "name": "Мужская",
+                    "slug": "odezhda-muzhskaya",
+                    "children": [
+                      { "id": 3, "name": "Куртки", "slug": "odezhda-muzhskaya-kurtki" }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        headers: []
+        description: Успех
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []

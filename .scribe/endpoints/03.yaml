@@ -1,0 +1,179 @@
+name: Orders
+description: |-
+
+  Управление заказами
+
+  Создание заказа из корзины (гость или пользователь) и список заказов пользователя.
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: api/orders
+    metadata:
+      groupName: Orders
+      groupDescription: |-
+
+        Управление заказами
+
+        Создание заказа из корзины (гость или пользователь) и список заказов пользователя.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Создать заказ (из текущей корзины)'
+      description: 'Для гостя используется `guest_token` (cookie или параметр запроса), для авторизованного — `user_id`.'
+      authenticated: false
+      deprecated: false
+      custom: []
+    headers:
+      Idempotency-Key: 'string Уникальный ключ для предотвращения дублирования заказа. Example: a1b2c3d4'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        name: email
+        description: 'Email заказчика.'
+        required: true
+        example: guest@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      phone:
+        name: phone
+        description: 'Телефон заказчика.'
+        required: true
+        example: '+77001112233'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanBodyParameters:
+      email: guest@example.com
+      phone: '+77001112233'
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: '{ "message": "Duplicate order" }'
+        headers: []
+        description: 'Повтор с тем же Idempotency-Key'
+        custom: []
+      -
+        status: 201
+        content: |-
+          {
+            "data": {
+              "id": 3,
+              "user_id": null,
+              "guest_token": "681e303b-c55d-4494-b1b5-14da8a5e2522",
+              "email": "guest@example.com",
+              "phone": "+77001112233",
+              "status": "placed",
+              "total_minor": 105696,
+              "idempotency_key": "a1b2c3d4",
+              "items": [
+                {
+                  "id": 7,
+                  "product_id": 1,
+                  "name_snapshot": "Product 1",
+                  "price_snapshot": "52848.00",
+                  "qty": 2
+                }
+              ]
+            }
+          }
+        headers: []
+        description: 'Успешно создан'
+        custom: []
+      -
+        status: 400
+        content: '{ "message": "Cart is empty" }'
+        headers: []
+        description: 'Пустая корзина'
+        custom: []
+      -
+        status: 500
+        content: '{ "error": "Order creation failed" }'
+        headers: []
+        description: 'Ошибка сервера'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/orders
+    metadata:
+      groupName: Orders
+      groupDescription: |-
+
+        Управление заказами
+
+        Создание заказа из корзины (гость или пользователь) и список заказов пользователя.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Список заказов текущего пользователя'
+      description: ''
+      authenticated: true
+      deprecated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "data": [
+              {
+                "id": 10,
+                "user_id": 1,
+                "guest_token": null,
+                "email": "user@example.com",
+                "phone": "+77001112233",
+                "status": "placed",
+                "total_minor": 18356,
+                "items": [
+                  {
+                    "id": 21,
+                    "product_id": 1,
+                    "name_snapshot": "Product 1",
+                    "price_snapshot": "18356.00",
+                    "qty": 1
+                  }
+                ]
+              }
+            ]
+          }
+        headers: []
+        description: Успех
+        custom: []
+      -
+        status: 401
+        content: '{ "message": "Unauthorized" }'
+        headers: []
+        description: 'Не авторизован'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []

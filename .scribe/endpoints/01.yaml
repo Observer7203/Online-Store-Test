@@ -1,0 +1,220 @@
+name: Attributes
+description: |-
+
+  Управление атрибутами товаров
+
+  Атрибуты (EAV) используются для описания характеристик товаров
+  (например: цвет, размер, ширина и т.д.).
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: api/attributes
+    metadata:
+      groupName: Attributes
+      groupDescription: |-
+
+        Управление атрибутами товаров
+
+        Атрибуты (EAV) используются для описания характеристик товаров
+        (например: цвет, размер, ширина и т.д.).
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Создать новый атрибут'
+      description: 'Создаёт атрибут с указанными полями.'
+      authenticated: false
+      deprecated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: 'Название атрибута.'
+        required: true
+        example: Цвет
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      code:
+        name: code
+        description: 'Уникальный код атрибута (slug).'
+        required: true
+        example: color
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      type:
+        name: type
+        description: 'Тип атрибута. Допустимые значения: int, decimal, bool, string.'
+        required: true
+        example: string
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanBodyParameters:
+      name: Цвет
+      code: color
+      type: string
+    fileParameters: []
+    responses:
+      -
+        status: 201
+        content: |-
+          {
+            "id": 2,
+            "name": "Размер",
+            "code": "size",
+            "type": "string",
+            "created_at": "2025-09-09T12:45:00.000000Z",
+            "updated_at": "2025-09-09T12:45:00.000000Z"
+          }
+        headers: []
+        description: 'Успешное создание'
+        custom: []
+      -
+        status: 422
+        content: |-
+          {
+            "message": "The given data was invalid.",
+            "errors": {
+              "code": ["The code has already been taken."]
+            }
+          }
+        headers: []
+        description: 'Ошибка валидации'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/attributes/{id}'
+    metadata:
+      groupName: Attributes
+      groupDescription: |-
+
+        Управление атрибутами товаров
+
+        Атрибуты (EAV) используются для описания характеристик товаров
+        (например: цвет, размер, ширина и т.д.).
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Удалить атрибут'
+      description: 'Удаляет атрибут по ID.'
+      authenticated: false
+      deprecated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'ID атрибута.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "message": "Attribute deleted"
+          }
+        headers: []
+        description: 'Успешное удаление'
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+            "message": "Attribute not found"
+          }
+        headers: []
+        description: 'Атрибут не найден'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/attributes
+    metadata:
+      groupName: Attributes
+      groupDescription: |-
+
+        Управление атрибутами товаров
+
+        Атрибуты (EAV) используются для описания характеристик товаров
+        (например: цвет, размер, ширина и т.д.).
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Получить список атрибутов'
+      description: 'Возвращает полный список всех атрибутов.'
+      authenticated: false
+      deprecated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          [
+            {
+              "id": 1,
+              "name": "Цвет",
+              "code": "color",
+              "type": "string",
+              "created_at": "2025-09-09T12:30:00.000000Z",
+              "updated_at": "2025-09-09T12:30:00.000000Z"
+            }
+          ]
+        headers: []
+        description: 'Успешный запрос'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []

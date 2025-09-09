@@ -1,0 +1,230 @@
+name: Products
+description: |-
+
+  Каталог товаров
+
+  Эндпоинты для получения списка и карточки товара, с фильтрами и сортировкой.
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: api/products
+    metadata:
+      groupName: Products
+      groupDescription: |-
+
+        Каталог товаров
+
+        Эндпоинты для получения списка и карточки товара, с фильтрами и сортировкой.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Список товаров (с фильтрами и сортировкой)'
+      description: |-
+        Возвращает пагинированный список товаров. Поддерживает фильтрацию по категориям,
+        диапазону цены и EAV-атрибутам.
+      authenticated: false
+      deprecated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters:
+      page:
+        name: page
+        description: 'Страница пагинации.'
+        required: false
+        example: 0
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      'category_ids[]':
+        name: 'category_ids[]'
+        description: 'ID категорий (можно несколько).'
+        required: false
+        example:
+          - 5
+          - 12
+        type: 'integer[]'
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      price_min:
+        name: price_min
+        description: 'Минимальная цена (в minor-единицах).'
+        required: false
+        example: 1000
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      price_max:
+        name: price_max
+        description: 'Максимальная цена (в minor-единицах).'
+        required: false
+        example: 100000
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      sort:
+        name: sort
+        description: 'Сортировка: price_asc, price_desc. По умолчанию — последние.'
+        required: false
+        example: price_desc
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      'attr[color]':
+        name: 'attr[color]'
+        description: 'Фильтр по строковому атрибуту.'
+        required: false
+        example: red
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      'attr[size][]':
+        name: 'attr[size][]'
+        description: 'Фильтр по множественным значениям.'
+        required: false
+        example: null
+        type: 'string[]'
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      'attr[width]':
+        name: 'attr[width]'
+        description: 'Фильтр по числовому атрибуту.'
+        required: false
+        example: 42
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanQueryParameters:
+      page: 0
+      'category_ids[]':
+        - 5
+        - 12
+      price_min: 1000
+      price_max: 100000
+      sort: price_desc
+      'attr[color]': red
+      'attr[size][]': null
+      'attr[width]': 42
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "data": [
+              {
+                "id": 1,
+                "name": "Product 1",
+                "slug": "product-1",
+                "price": 52848,
+                "category": {
+                  "id": 12,
+                  "name": "Кроссовки",
+                  "slug": "obuv-muzhskaya-krossovki"
+                },
+                "attributes": [
+                  { "attribute_id": 1, "value_string": "red" },
+                  { "attribute_id": 2, "value_string": "M" },
+                  { "attribute_id": 3, "value_int": 42 }
+                ]
+              }
+            ],
+            "links": { "first": "...", "last": "...", "prev": null, "next": "..." },
+            "meta": { "current_page": 1, "last_page": 5, "per_page": 10, "total": 50 }
+          }
+        headers: []
+        description: 'Успех (пагинировано)'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/products/{slug}'
+    metadata:
+      groupName: Products
+      groupDescription: |-
+
+        Каталог товаров
+
+        Эндпоинты для получения списка и карточки товара, с фильтрами и сортировкой.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Карточка товара'
+      description: 'Возвращает один товар по `slug` с категорией и атрибутами.'
+      authenticated: false
+      deprecated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      slug:
+        name: slug
+        description: 'Slug товара.'
+        required: true
+        example: product-1
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanUrlParameters:
+      slug: product-1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "data": {
+              "id": 1,
+              "name": "Product 1",
+              "slug": "product-1",
+              "price": 52848,
+              "category": { "id": 12, "name": "Кроссовки", "slug": "obuv-muzhskaya-krossovki" },
+              "attributes": [
+                { "attribute_id": 1, "value_string": "red" },
+                { "attribute_id": 2, "value_string": "M" },
+                { "attribute_id": 3, "value_int": 42 }
+              ]
+            }
+          }
+        headers: []
+        description: Успех
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []

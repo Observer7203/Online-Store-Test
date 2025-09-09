@@ -1,0 +1,279 @@
+name: Cart
+description: |-
+
+  Управление корзиной
+
+  Добавление, обновление и удаление товаров в корзине (для гостя или авторизованного).
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: api/cart
+    metadata:
+      groupName: Cart
+      groupDescription: |-
+
+        Управление корзиной
+
+        Добавление, обновление и удаление товаров в корзине (для гостя или авторизованного).
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Получить текущую корзину'
+      description: 'Возвращает корзину пользователя или гостя (по cookie `guest_token`).'
+      authenticated: false
+      deprecated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "data": {
+              "id": 1,
+              "guest_token": "681e303b-c55d-4494-b1b5-14da8a5e2522",
+              "items": [
+                {
+                  "id": 1,
+                  "product_id": 5,
+                  "qty": 2,
+                  "price_snapshot": "52848.00",
+                  "product": { "id": 5, "name": "Product 5" }
+                }
+              ]
+            }
+          }
+        headers: []
+        description: Успех
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/cart
+    metadata:
+      groupName: Cart
+      groupDescription: |-
+
+        Управление корзиной
+
+        Добавление, обновление и удаление товаров в корзине (для гостя или авторизованного).
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Добавить товар в корзину'
+      description: |-
+        Если товар уже есть в корзине — увеличивает количество.
+        Для гостя корзина определяется по cookie `guest_token`.
+      authenticated: false
+      deprecated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      product_id:
+        name: product_id
+        description: 'ID товара.'
+        required: true
+        example: 5
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      qty:
+        name: qty
+        description: 'Количество (>=1).'
+        required: true
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanBodyParameters:
+      product_id: 5
+      qty: 2
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "data": {
+              "id": 1,
+              "items": [
+                { "id": 7, "product_id": 5, "qty": 4, "price_snapshot": "52848.00" }
+              ]
+            }
+          }
+        headers: []
+        description: 'Увеличено количество'
+        custom: []
+      -
+        status: 201
+        content: |-
+          {
+            "data": {
+              "id": 1,
+              "items": [
+                { "id": 7, "product_id": 5, "qty": 2, "price_snapshot": "52848.00" }
+              ]
+            }
+          }
+        headers: []
+        description: 'Добавлен новый товар'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+    uri: 'api/cart/{id}'
+    metadata:
+      groupName: Cart
+      groupDescription: |-
+
+        Управление корзиной
+
+        Добавление, обновление и удаление товаров в корзине (для гостя или авторизованного).
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Обновить количество товара'
+      description: ''
+      authenticated: false
+      deprecated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'ID позиции корзины.'
+        required: true
+        example: 7
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanUrlParameters:
+      id: 7
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      qty:
+        name: qty
+        description: 'Новое количество (>=1).'
+        required: true
+        example: 3
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanBodyParameters:
+      qty: 3
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "data": {
+              "id": 1,
+              "items": [
+                { "id": 7, "product_id": 5, "qty": 3, "price_snapshot": "52848.00" }
+              ]
+            }
+          }
+        headers: []
+        description: Успех
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/cart/{id}'
+    metadata:
+      groupName: Cart
+      groupDescription: |-
+
+        Управление корзиной
+
+        Добавление, обновление и удаление товаров в корзине (для гостя или авторизованного).
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Удалить товар из корзины'
+      description: ''
+      authenticated: false
+      deprecated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'ID позиции корзины.'
+        required: true
+        example: 7
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanUrlParameters:
+      id: 7
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "data": {
+              "id": 1,
+              "items": []
+            }
+          }
+        headers: []
+        description: Успех
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
