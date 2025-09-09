@@ -123,7 +123,7 @@ make-controller:
 make-seeder:
 	docker-compose exec php-fpm php artisan make:seeder $(name)Seeder
 ```
-
+```
 MakeFile Команды
 
 Миграции
@@ -174,7 +174,7 @@ docker-compose exec php-fpm php artisan make:test ProductTest
 docker-compose exec php-fpm php artisan make:test EavFilterTest --unit
 
 ### Часть 4. Архитектура БД (из проекта)
-
+```
 ```
 
 categories: трёхуровневое дерево категорий (depth 1–3).
